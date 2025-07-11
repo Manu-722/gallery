@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Gallery App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+  {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- ✅ Navbar -->
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="{% url 'gallery:home' %}" class="text-lg font-bold text-blue-600">📷 Photo Gallery</a>
+      <div class="space-x-4">
+        {% if user.is_authenticated %}
+          <a href="{% url 'gallery:upload' %}" class="text-blue-600 hover:underline">Upload</a>
+          <a href="{% url 'users:profile' %}" class="text-blue-600 hover:underline">Profile</a>
+          <a href="{% url 'users:logout' %}" class="text-red-500 hover:underline">Logout</a>
+        {% else %}
+          <a href="{% url 'users:login' %}" class="text-blue-600 hover:underline">Login</a>
+          <a href="{% url 'users:signup' %}" class="text-green-600 hover:underline">Signup</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ Main Content -->
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer class="bg-white border-t mt-10">
+    <div class="max-w-7xl mx-auto px-4 py-4 text-sm text-center text-gray-500">
+      &copy; {{ year|default:2025 }} Photo Gallery by Manu. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
