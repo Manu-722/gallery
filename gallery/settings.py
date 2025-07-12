@@ -82,7 +82,9 @@ DATABASES = {
     }
 }
 
-
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -133,3 +135,11 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 TEMPLATES[0]['DIRS'] = [BASE_DIR / 'gallery' / 'templates']
+import os
+import dj_database_url
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
