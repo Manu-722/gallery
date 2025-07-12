@@ -4,9 +4,22 @@
   <meta charset="UTF-8">
   <title>Photo Gallery App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!-- ✅ Tailwind CDN -->
+
+  <!-- ✅ Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+  <!-- ✅ Optional: Tailwind Theme Customization -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#3b82f6', // Blue 500
+          }
+        }
+      }
+    }
+  </script>
 
   {% block head %}{% endblock %}
 </head>
@@ -15,14 +28,15 @@
   <!-- ✅ Navbar -->
   <nav class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="{% url 'gallery:home' %}" class="text-lg font-bold text-blue-600">📷 Photo Gallery</a>
+      <a href="{% url 'gallery:home' %}" class="text-lg font-bold text-brand">📷 Photo Gallery</a>
       <div class="space-x-4">
         {% if user.is_authenticated %}
-          <a href="{% url 'gallery:upload' %}" class="text-blue-600 hover:underline">Upload</a>
-          <a href="{% url 'users:profile' %}" class="text-blue-600 hover:underline">Profile</a>
+          <a href="{% url 'gallery:upload' %}" class="text-brand hover:underline">Upload</a>
+          <a href="{% url 'users:profile' %}" class="text-brand hover:underline">Profile</a>
+          <a href="{% url 'users:favorites' %}" class="text-indigo-600 hover:underline">My Favorites</a>
           <a href="{% url 'users:logout' %}" class="text-red-500 hover:underline">Logout</a>
         {% else %}
-          <a href="{% url 'users:login' %}" class="text-blue-600 hover:underline">Login</a>
+          <a href="{% url 'users:login' %}" class="text-brand hover:underline">Login</a>
           <a href="{% url 'users:signup' %}" class="text-green-600 hover:underline">Signup</a>
         {% endif %}
       </div>

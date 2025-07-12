@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-6 text-blue-600">Your Favorite Photos</h2>
+
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+    {% for photo in favorites %}
+      <a href="{% url 'gallery:detail' photo.id %}" class="block rounded shadow overflow-hidden hover:scale-105 transition">
+        <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full h-32 object-cover">
+        <div class="px-2 py-1 text-sm text-gray-700 truncate">{{ photo.title }}</div>
+      </a>
+    {% empty %}
+      <p class="text-gray-600">You haven’t favorited any photos yet.</p>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <div class="mt-6 flex justify-center gap-2 text-sm">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200">&larr; Prev</a>
+      {% endif %}
+      <span class="px-3 py-1 text-gray-600">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200">Next &rarr;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
