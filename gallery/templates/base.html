@@ -5,16 +5,16 @@
   <title>Photo Gallery App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ Tailwind CSS CDN -->
+  
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
-  <!-- ✅ Optional: Tailwind Theme Customization -->
+  
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: '#3b82f6', // Blue 500
+            brand: '#3b82f6', 
           }
         }
       }
@@ -25,10 +25,10 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-  <!-- ✅ Navbar -->
+  
   <nav class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="{% url 'gallery:home' %}" class="text-lg font-bold text-brand">📷 Photo Gallery</a>
+      <a href="{% url 'gallery:home' %}" class="text-lg font-bold text-brand"> Photo Gallery</a>
       <div class="space-x-4">
         {% if user.is_authenticated %}
           <a href="{% url 'gallery:upload' %}" class="text-brand hover:underline">Upload</a>
@@ -43,12 +43,12 @@
     </div>
   </nav>
 
-  <!-- ✅ Main Content -->
+  
   <main class="max-w-7xl mx-auto px-4 py-6">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- ✅ Footer -->
+  
   <footer class="bg-white border-t mt-10">
     <div class="max-w-7xl mx-auto px-4 py-4 text-sm text-center text-gray-500">
       &copy; {{ year|default:2025 }} Photo Gallery by Manu. All rights reserved.

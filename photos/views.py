@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Photo, Tag
 from .forms import PhotoForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 def home_view(request):
     photos = Photo.objects.all().order_by('-uploaded_at')
@@ -27,3 +30,11 @@ def filter_view(request, tag_id):
     tag = get_object_or_404(Tag, id=tag_id)
     photos = Photo.objects.filter(tags=tag)
     return render(request, 'filter.html', {'photos': photos, 'tag': tag})
+@login_required
+def toggle_favorite(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    if request.user in photo.favorites.all():
+        photo.favorites.remove(request.user)
+    else:
+        photo.favorites.add(request.user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('gallery:home')))
